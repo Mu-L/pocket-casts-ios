@@ -256,6 +256,21 @@ extension AnalyticsHelper {
         logEvent("folder_created")
     }
 }
+
+// MARK: - Promotion Events
+private extension AnalyticsHelper {
+    // Helper method to log a Firebase promotion event
+    static func logPromotionEvent(_ name: String, promotionId: String, promotionName: String) {
+        let parameters = [
+            AnalyticsParameterPromotionID: promotionId,
+            AnalyticsParameterPromotionName: promotionName
+        ]
+
+        logEvent(name, parameters: parameters)
+    }
+}
+#endif // End iOS Only Check
+
 // MARK: - Private
 private extension AnalyticsHelper {
     class func logEvent(_ name: String, parameters: [String: Any]? = nil) {
