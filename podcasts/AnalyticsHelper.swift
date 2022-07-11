@@ -250,6 +250,12 @@ class AnalyticsHelper {
     class func accountDeleted() {
         logEvent("account_deleted", parameters: nil)
     }
+// MARK: - Folders
+extension AnalyticsHelper {
+    static func folderCreated() {
+        logEvent("folder_created")
+    }
+}
 // MARK: - Private
 private extension AnalyticsHelper {
     class func logEvent(_ name: String, parameters: [String: Any]? = nil) {
