@@ -250,6 +250,24 @@ class AnalyticsHelper {
     class func accountDeleted() {
         logEvent("account_deleted", parameters: nil)
     }
+}
+
+// MARK: - Plus Upgrades
+#if os(iOS)
+extension AnalyticsHelper {
+    static func plusUpgradeViewed(source: PlusUpgradeViewSource) {
+        logPromotionEvent(AnalyticsEventViewPromotion,
+                          promotionId: source.promotionId(),
+                          promotionName: source.promotionName())
+    }
+
+    static func plusUpgradeConfirmed(source: PlusUpgradeViewSource) {
+        logPromotionEvent(AnalyticsEventSelectPromotion,
+                          promotionId: source.promotionId(),
+                          promotionName: source.promotionName())
+    }
+}
+
 // MARK: - Folders
 extension AnalyticsHelper {
     static func folderCreated() {
