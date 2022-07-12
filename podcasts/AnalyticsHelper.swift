@@ -266,6 +266,12 @@ extension AnalyticsHelper {
                           promotionId: source.promotionId(),
                           promotionName: source.promotionName())
     }
+
+    static func plusUpgradeDismissed(source: PlusUpgradeViewSource) {
+        logPromotionEvent("close_promotion",
+                          promotionId: source.promotionId(),
+                          promotionName: source.promotionName())
+    }
 }
 
 // MARK: - Folders
