@@ -44,6 +44,8 @@ class UpgradeRequiredViewController: PCViewController {
     let source: PlusUpgradeViewSource
     weak var upgradeRootViewController: UIViewController?
     
+    @IBOutlet var noPaymentLabel: ThemeableLabel!
+
     init(upgradeRootViewController: UIViewController, source: PlusUpgradeViewSource) {
         self.upgradeRootViewController = upgradeRootViewController
         self.source = source
@@ -58,14 +60,11 @@ class UpgradeRequiredViewController: PCViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = L10n.pocketCastsPlus
+        title = "" // L10n.pocketCastsPlus
         
         NotificationCenter.default.addObserver(self, selector: #selector(iapProductsUpdated), name: ServerNotifications.iapProductsUpdated, object: nil)
-        
-        let monthlyPrice = IapHelper.shared.getPriceForIdentifier(identifier: Constants.IapProducts.monthly.rawValue)
-        if monthlyPrice.count > 0 {
-            priceLabel.text = L10n.plusPricePerMonth(monthlyPrice)
-        }
+
+        upgradePriceLabel()
         
         let closeButton = UIBarButtonItem(image: UIImage(named: "cancel"), style: .done, target: self, action: #selector(doneCicked))
         closeButton.accessibilityLabel = L10n.accessibilityCloseDialog
@@ -110,7 +109,7 @@ class UpgradeRequiredViewController: PCViewController {
 
             if SyncManager.isUserLoggedIn() {
                 let newSubscription = NewSubscription(isNewAccount: false, iap_identifier: "")
-                presentingController?.present(SJUIUtils.popupNavController(for: TermsViewController(newSubscription: newSubscription)), animated: true)
+                presentingController?.present(SJUIUtils.popupNavController(for: TermsViewController(newSubscription: newSubscription), navStyle: .primaryUi01), animated: true)
             }
             else {
                 presentingController?.present(SJUIUtils.popupNavController(for: ProfileIntroViewController()), animated: true)
@@ -119,15 +118,40 @@ class UpgradeRequiredViewController: PCViewController {
     }
     
     @objc func iapProductsUpdated() {
-        let monthlyPrice = IapHelper.shared.getPriceForIdentifier(identifier: Constants.IapProducts.monthly.rawValue)
-        if monthlyPrice.count > 0 {
-            priceLabel.text = L10n.plusPricePerMonth(monthlyPrice)
-        }
+        upgradePriceLabel()
     }
     
     // MARK: - Orientation
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         .portrait
+    }
+}
+
+private extension UpgradeRequiredViewController {
+    func updateInfoLabel() {
+        guard let trial = IapHelper.shared.getFreeTrialDays(.yearly) else {
+            noPaymentLabel.isHidden = true
+            return
+        }
+
+        infoLabel.text = "Try Pocket Casts Plus free for \(trial) days"
+        upgradeButton.setTitle("Start Free Trial", for: .normal)
+        noPaymentLabel.isHidden = false
+    }
+
+    func upgradePriceLabel() {
+        updateInfoLabel()
+
+        let monthlyPrice = IapHelper.shared.getPriceForIdentifier(identifier: Constants.IapProducts.monthly.rawValue)
+        let yearlyPrice = IapHelper.shared.getPriceForIdentifier(identifier: Constants.IapProducts.yearly.rawValue)
+
+        guard !monthlyPrice.isEmpty, !yearlyPrice.isEmpty else {
+            return
+        }
+
+//        let priceText = L10n.settingsPlusPricingFormat(monthlyPrice, yearlyPrice)
+//        priceLabel.text = priceText
+        
     }
 }

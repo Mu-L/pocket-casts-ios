@@ -78,13 +78,21 @@ class ConfirmPaymentViewController: UIViewController {
         if let email = ServerSettings.syncingEmail() {
             emailLabel.text = email
         }
-        
-        let paymentFreq = IapHelper.shared.getPaymentFrequencyForIdentifier(identifier: newSubscription.iap_identifier)
-        priceLabel.text = "\(IapHelper.shared.getPriceForIdentifier(identifier: newSubscription.iap_identifier))" + " / " + "\(paymentFreq)"
+
+        let identifier = newSubscription.iap_identifier
+
+        let paymentFreq = IapHelper.shared.getPaymentFrequencyForIdentifier(identifier: identifier)
+        priceLabel.text = "\(IapHelper.shared.getPriceForIdentifier(identifier: identifier))" + " / " + "\(paymentFreq)"
         renewLabel.text = Constants.IapProducts(rawValue: newSubscription.iap_identifier)?.renewalPrompt
         activityIndicator.isHidden = true
         activityIndicator.hidesWhenStopped = true
-        
+
+        if let trialDays = IapHelper.shared.getFreeTrialDays(Constants.IapProducts(rawValue: identifier)!) {
+            priceLabel.text = "Free for \(trialDays) days then \(IapHelper.shared.getPriceForIdentifier(identifier: identifier))" + "/" + "\(paymentFreq) after trial"
+
+            buyButton.setTitle("Subscribe with Free Trial", for: .normal)
+        }
+
         tryAgainView.isHidden = true
         
         buyButton.setNeedsLayout()

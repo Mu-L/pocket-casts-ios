@@ -58,7 +58,13 @@ class SelectPaymentFreqViewController: UIViewController {
             noConnectionImageView.imageNameFunc = AppTheme.noConnectionImageName
         }
     }
-    
+
+    @IBOutlet var monthlyTopConstraint: NSLayoutConstraint!
+    @IBOutlet var monthlyTrialLabel: ThemeableLabel!
+
+    @IBOutlet var yearlyTopConstraint: NSLayoutConstraint!
+    @IBOutlet var yearlyTrialLabel: ThemeableLabel!
+
     @IBOutlet var errorView: ThemeableView!
     @IBOutlet var tryAgainActivityIndicator: UIActivityIndicatorView!
     @IBOutlet var tryAgainButton: ThemeableRoundedButton!
@@ -165,6 +171,33 @@ class SelectPaymentFreqViewController: UIViewController {
         yearlyPriceLabel.text = "\(yearlyPrice)"
         monthlyPriceLabel.text = "\(IapHelper.shared.getPriceForIdentifier(identifier: Constants.IapProducts.monthly.rawValue))"
         discountLabel.text = L10n.plusPaymentFrequencyBestValue.localizedUppercase
+
+        configureTrialLabels()
+    }
+
+    private func configureTrialLabels() {
+        configureMonthlyTrialLabel()
+        configureYearlyTrialLabel()
+    }
+
+    private func configureMonthlyTrialLabel() {
+        guard let days = IapHelper.shared.getFreeTrialDays(.monthly) else {
+            monthlyTrialLabel.isHidden = true
+            monthlyTopConstraint.constant = 0
+            return
+        }
+
+        monthlyTrialLabel.text = "\(days) Day Free Trial"
+    }
+
+    private func configureYearlyTrialLabel() {
+        guard let days = IapHelper.shared.getFreeTrialDays(.yearly) else {
+            yearlyTrialLabel.isHidden = true
+            yearlyTopConstraint.constant = 0
+            return
+        }
+
+        yearlyTrialLabel.text = "\(days) Day Free Trial"
     }
     
     @IBAction func yearlyTapped(_ sender: Any) {

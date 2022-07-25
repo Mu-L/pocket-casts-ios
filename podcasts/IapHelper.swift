@@ -9,7 +9,7 @@ class IapHelper: NSObject, SKProductsRequestDelegate {
     
     let productIdentifiers = Set([Constants.IapProducts.monthly.rawValue, Constants.IapProducts.yearly.rawValue])
     
-    var product: SKProduct?
+//    var product: SKProduct?
     var productsArray = [SKProduct]()
     var requestedPurchase: String!
     
@@ -33,6 +33,35 @@ class IapHelper: NSObject, SKProductsRequestDelegate {
             }
         }
         return nil
+    }
+
+    func isEligibleForTrial() {}
+
+    func getFreeTrialDays(_ identifier: Constants.IapProducts) -> Int? {
+        guard
+            let product = getProductWithIdentifier(identifier: identifier.rawValue),
+            let offer = product.introductoryPrice
+        else {
+            return nil
+        }
+
+        let number = offer.subscriptionPeriod.numberOfUnits
+        let days: Int?
+
+        switch offer.subscriptionPeriod.unit {
+        case .day:
+            days = number
+        case .week:
+            days = number * 7
+        case .month:
+            days = number * 30
+        case .year:
+            days = number * 365
+        @unknown default:
+            days = nil
+        }
+
+        return days
     }
     
     public func getPriceForIdentifier(identifier: String) -> String {
@@ -73,6 +102,8 @@ class IapHelper: NSObject, SKProductsRequestDelegate {
     
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         if response.products.count > 0 {
+            NSLog("👋 iapProductsUpdated")
+
             productsArray = response.products
             NotificationCenter.postOnMainThread(notification: ServerNotifications.iapProductsUpdated)
         }

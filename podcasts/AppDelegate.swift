@@ -66,16 +66,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         shortcutManager.listenForShortcutChanges()
         
         setupBackgroundRefresh()
-        
+
         SKPaymentQueue.default().add(IapHelper.shared)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleThemeChanged), name: Constants.Notifications.themeChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(hideOverlays), name: Constants.Notifications.openingNonOverlayableWindow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showOverlays), name: Constants.Notifications.closedNonOverlayableWindow, object: nil)
-        
+
+        // IAP Test
+
+        IapHelper.shared.requestProductInfo()
+
         return true
     }
-    
+
     func applicationDidEnterBackground(_ application: UIApplication) {
         handleEnterBackground()
     }

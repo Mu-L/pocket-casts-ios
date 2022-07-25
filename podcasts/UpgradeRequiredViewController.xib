@@ -14,6 +14,7 @@
                 <outlet property="infoLabel" destination="6wF-b3-KoM" id="ju7-U0-fBh"/>
                 <outlet property="learnMoreButton" destination="lmE-bQ-pNp" id="AfV-Ra-9YQ"/>
                 <outlet property="logoImageView" destination="iJ9-R3-EUr" id="zMy-q8-kNJ"/>
+                <outlet property="noPaymentLabel" destination="VXB-uw-OoD" id="7Si-NS-6zt"/>
                 <outlet property="noThanksButton" destination="Pxn-Dx-U0Q" id="vn6-ae-A7h"/>
                 <outlet property="priceLabel" destination="XUO-uz-FnT" id="1qt-MI-gjP"/>
                 <outlet property="upgradeButton" destination="BGY-nH-CAq" id="MHV-Dz-ZhT"/>
@@ -28,15 +29,21 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CzT-7U-EeT">
                     <rect key="frame" x="0.0" y="44" width="414" height="658"/>
                     <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Payment Now – Cancel Anytime" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXB-uw-OoD" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
+                            <rect key="frame" x="30" y="233" width="354" height="19.5"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="verticalLogo" translatesAutoresizingMaskIntoConstraints="NO" id="iJ9-R3-EUr" customClass="ThemeableImageView" customModule="podcasts" customModuleProvider="target">
-                            <rect key="frame" x="133" y="45" width="148" height="156"/>
+                            <rect key="frame" x="133" y="0.0" width="148" height="156"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="148" id="TGI-Y1-aKk"/>
                                 <constraint firstAttribute="height" constant="156" id="raQ-vE-8xH"/>
                             </constraints>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Dj-7g-cQf" customClass="PlusFeaturesView" customModule="podcasts" customModuleProvider="target">
-                            <rect key="frame" x="87" y="302" width="240" height="144"/>
+                            <rect key="frame" x="87" y="272.5" width="240" height="144"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" priority="750" constant="144" id="ESZ-2v-pZO"/>
@@ -44,42 +51,42 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lmE-bQ-pNp" customClass="ThemeableRoundedButton" customModule="podcasts" customModuleProvider="target">
-                            <rect key="frame" x="79" y="476" width="256" height="30"/>
+                            <rect key="frame" x="79" y="446.5" width="256" height="30"/>
                             <state key="normal" title=" Learn more about Pocket Casts Plus "/>
                             <connections>
                                 <action selector="learnMoreClicked:" destination="-1" eventType="touchUpInside" id="Sux-zg-KFE"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUO-uz-FnT" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
-                            <rect key="frame" x="207" y="520" width="0.0" height="0.0"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUO-uz-FnT" userLabel="Price Label" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
+                            <rect key="frame" x="207" y="490.5" width="0.0" height="0.0"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This feature requires Pocket Casts Plus" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6wF-b3-KoM" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
-                            <rect key="frame" x="67.5" y="221" width="279" height="61"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="61" id="6hW-Kq-41g"/>
-                                <constraint firstAttribute="width" constant="279" id="gq5-6Z-eJQ"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This feature requires Pocket Casts Plus" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6wF-b3-KoM" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
+                            <rect key="frame" x="30" y="156" width="354" height="67"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="iJ9-R3-EUr" firstAttribute="top" secondItem="CzT-7U-EeT" secondAttribute="top" constant="45" id="15p-AP-Gdw"/>
+                        <constraint firstItem="iJ9-R3-EUr" firstAttribute="top" secondItem="CzT-7U-EeT" secondAttribute="top" id="15p-AP-Gdw"/>
                         <constraint firstItem="6wF-b3-KoM" firstAttribute="centerX" secondItem="CzT-7U-EeT" secondAttribute="centerX" id="26B-hB-KaV"/>
                         <constraint firstItem="iJ9-R3-EUr" firstAttribute="centerX" secondItem="CzT-7U-EeT" secondAttribute="centerX" id="7l3-0l-Yt2"/>
                         <constraint firstItem="XUO-uz-FnT" firstAttribute="centerX" secondItem="CzT-7U-EeT" secondAttribute="centerX" id="BvA-yf-GtS"/>
                         <constraint firstAttribute="bottom" secondItem="XUO-uz-FnT" secondAttribute="bottom" constant="60" id="CeV-DP-Zh9"/>
-                        <constraint firstItem="iJ9-R3-EUr" firstAttribute="bottom" secondItem="6wF-b3-KoM" secondAttribute="top" constant="-20" id="GgN-iB-GYs"/>
+                        <constraint firstItem="iJ9-R3-EUr" firstAttribute="bottom" secondItem="6wF-b3-KoM" secondAttribute="top" id="GgN-iB-GYs"/>
                         <constraint firstItem="lmE-bQ-pNp" firstAttribute="top" secondItem="1Dj-7g-cQf" secondAttribute="bottom" constant="30" id="KT8-hr-8Zh"/>
-                        <constraint firstAttribute="trailing" secondItem="6wF-b3-KoM" secondAttribute="trailing" constant="20" id="UXS-u6-Cif"/>
-                        <constraint firstItem="6wF-b3-KoM" firstAttribute="bottom" secondItem="1Dj-7g-cQf" secondAttribute="top" constant="-20" id="hKI-Q7-ymM"/>
+                        <constraint firstItem="VXB-uw-OoD" firstAttribute="leading" secondItem="CzT-7U-EeT" secondAttribute="leading" constant="30" id="MVe-Ep-jyC"/>
+                        <constraint firstItem="VXB-uw-OoD" firstAttribute="top" secondItem="6wF-b3-KoM" secondAttribute="bottom" constant="10" id="N4v-9m-6VC"/>
+                        <constraint firstAttribute="trailing" secondItem="6wF-b3-KoM" secondAttribute="trailing" constant="30" id="UXS-u6-Cif"/>
+                        <constraint firstItem="6wF-b3-KoM" firstAttribute="leading" secondItem="CzT-7U-EeT" secondAttribute="leading" constant="30" id="dmz-Wh-2JH"/>
+                        <constraint firstItem="VXB-uw-OoD" firstAttribute="bottom" secondItem="1Dj-7g-cQf" secondAttribute="top" constant="-20" id="hKI-Q7-ymM"/>
                         <constraint firstItem="1Dj-7g-cQf" firstAttribute="centerX" secondItem="CzT-7U-EeT" secondAttribute="centerX" id="iqJ-sO-geK"/>
                         <constraint firstItem="XUO-uz-FnT" firstAttribute="top" secondItem="lmE-bQ-pNp" secondAttribute="bottom" constant="14" id="kOR-97-gAl"/>
                         <constraint firstItem="lmE-bQ-pNp" firstAttribute="centerX" secondItem="CzT-7U-EeT" secondAttribute="centerX" id="mJH-oW-zrN"/>
+                        <constraint firstAttribute="trailing" secondItem="VXB-uw-OoD" secondAttribute="trailing" constant="30" id="qQ3-wt-d5S"/>
                     </constraints>
                 </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="djT-Kl-F5W" customClass="TopShadowView" customModule="podcasts" customModuleProvider="target">

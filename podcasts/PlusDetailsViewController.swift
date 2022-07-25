@@ -46,6 +46,7 @@ class PlusDetailsViewController: PCViewController {
     @IBOutlet var upgradeButton: GradientButton! {
         didSet {
             upgradeButton.setTitle(L10n.plusMarketingUpgradeButton, for: .normal)
+//            upgradeButton.setTitle("Try Plus free for 7 days", for: .normal)
         }
     }
     

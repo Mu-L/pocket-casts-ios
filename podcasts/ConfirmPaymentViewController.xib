@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -44,7 +42,7 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Failed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3PZ-ZG-BhU" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
-                            <rect key="frame" x="128" y="139.5" width="158" height="31"/>
+                            <rect key="frame" x="129" y="139.5" width="156.5" height="31"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="31" id="41M-FO-mo2"/>
                             </constraints>
@@ -97,8 +95,8 @@
                             <color key="textColor" red="0.5607843137254902" green="0.59215686274509804" blue="0.64313725490196072" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$10 / year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SWP-dj-bdn" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
-                            <rect key="frame" x="149.5" y="166" width="83.5" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$10 / year" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SWP-dj-bdn" customClass="ThemeableLabel" customModule="podcasts" customModuleProvider="target">
+                            <rect key="frame" x="20" y="153" width="342" height="21.5"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -112,13 +110,14 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="SWP-dj-bdn" firstAttribute="top" secondItem="7Zd-pd-VHb" secondAttribute="bottom" constant="28" id="3A1-g4-Lbk"/>
+                        <constraint firstItem="SWP-dj-bdn" firstAttribute="top" secondItem="7Zd-pd-VHb" secondAttribute="bottom" constant="15" id="3A1-g4-Lbk"/>
                         <constraint firstItem="qti-tx-iaY" firstAttribute="top" secondItem="aRM-WP-t3x" secondAttribute="top" constant="25" id="5XY-dk-3cG"/>
-                        <constraint firstItem="SWP-dj-bdn" firstAttribute="centerX" secondItem="aRM-WP-t3x" secondAttribute="centerX" id="AN6-NA-rdK"/>
                         <constraint firstItem="qti-tx-iaY" firstAttribute="centerX" secondItem="aRM-WP-t3x" secondAttribute="centerX" id="BT3-6R-1BG"/>
                         <constraint firstItem="TQs-aq-Rjk" firstAttribute="centerX" secondItem="aRM-WP-t3x" secondAttribute="centerX" id="GkR-Im-OJa"/>
+                        <constraint firstAttribute="trailing" secondItem="SWP-dj-bdn" secondAttribute="trailing" constant="20" id="N7B-9X-5ca"/>
                         <constraint firstAttribute="bottom" secondItem="jYn-SL-jwu" secondAttribute="bottom" constant="16" id="Yj5-DG-zYj"/>
                         <constraint firstItem="jYn-SL-jwu" firstAttribute="centerX" secondItem="aRM-WP-t3x" secondAttribute="centerX" id="Zai-A0-hDm"/>
+                        <constraint firstItem="SWP-dj-bdn" firstAttribute="leading" secondItem="aRM-WP-t3x" secondAttribute="leading" constant="20" id="Zrv-76-r11"/>
                         <constraint firstAttribute="height" constant="255" id="kh6-7G-1Uh"/>
                         <constraint firstItem="TQs-aq-Rjk" firstAttribute="top" secondItem="qti-tx-iaY" secondAttribute="bottom" constant="12" id="sr6-4a-eJ0"/>
                         <constraint firstItem="7Zd-pd-VHb" firstAttribute="top" secondItem="TQs-aq-Rjk" secondAttribute="bottom" constant="9" id="vbi-Y2-x9s"/>
@@ -133,7 +132,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="ocp-zo-nyl" customClass="ThemeableRoundedButton" customModule="podcasts" customModuleProvider="target">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="ocp-zo-nyl" customClass="ThemeableRoundedButton" customModule="podcasts" customModuleProvider="target">
                     <rect key="frame" x="16" y="790" width="382" height="56"/>
                     <color key="backgroundColor" red="0.01176470588" green="0.66274509800000003" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -163,6 +162,7 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="ocp-zo-nyl" firstAttribute="centerY" secondItem="tli-XC-pH5" secondAttribute="centerY" id="3Te-gq-zRD"/>
@@ -180,7 +180,6 @@
                 <constraint firstItem="aRM-WP-t3x" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="40" id="quL-oo-5wQ"/>
                 <constraint firstItem="ocp-zo-nyl" firstAttribute="top" secondItem="h1w-mb-WPm" secondAttribute="bottom" constant="16" id="xsL-bD-rsA"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="137.68115942028987" y="89.732142857142847"/>
         </view>
     </objects>

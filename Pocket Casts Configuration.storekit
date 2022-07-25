@@ -24,11 +24,15 @@
           "codeOffers" : [
 
           ],
-          "displayPrice" : "9.99",
+          "displayPrice" : "20.99",
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "C9B37131",
-          "introductoryOffer" : null,
+          "introductoryOffer" : {
+            "internalID" : "E1E5D841",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P1M"
+          },
           "localizations" : [
             {
               "description" : "",
@@ -53,7 +57,11 @@
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "267218F7",
-          "introductoryOffer" : null,
+          "introductoryOffer" : {
+            "internalID" : "AEDDCF46",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P1W"
+          },
           "localizations" : [
             {
               "description" : "",

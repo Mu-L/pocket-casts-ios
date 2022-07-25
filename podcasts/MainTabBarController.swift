@@ -12,7 +12,7 @@ class MainTabBarController: UITabBarController, NavigationProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let podcastsController = PodcastListViewController()
         podcastsController.tabBarItem = UITabBarItem(title: L10n.podcastsPlural, image: UIImage(named: "podcasts_tab"), tag: tabs.firstIndex(of: .podcasts)!)
         
@@ -39,8 +39,22 @@ class MainTabBarController: UITabBarController, NavigationProtocol {
         NotificationCenter.default.addObserver(self, selector: #selector(handleFollowSystemThemeTurnedOn), name: Constants.Notifications.followSystemThemeTurnedOn, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(unhideNavBar), name: Constants.Notifications.unhideNavBarRequested, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(iapProductsUpdated), name: ServerNotifications.iapProductsUpdated, object: nil)
     }
-    
+
+    @objc private func iapProductsUpdated() {
+        guard
+            SubscriptionHelper.hasActiveSubscription() == false,
+            let product = IapHelper.shared.getProductWithIdentifier(identifier: Constants.IapProducts.yearly.rawValue),
+            product.introductoryPrice != nil
+        else {
+            NSLog("👋 nope")
+            return
+        }
+
+        NavigationManager.sharedManager.showUpsellView(from: self, source: .unknown)
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
