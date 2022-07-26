@@ -14,11 +14,22 @@ class IapHelper: NSObject, SKProductsRequestDelegate {
     var requestedPurchase: String!
     
     fileprivate var productsRequest: SKProductsRequest?
-    
+
+    var introductoryPromo: IntroductoryPromotion?
+
     func requestProductInfo() {
         let request = SKProductsRequest(productIdentifiers: productIdentifiers)
         request.delegate = self
         request.start()
+
+
+        // Demo: Check promo code eligibility
+        ValidatePromoCodeTask.validatePromoCode(promoCode: IAPConstants.introCode, completion: { isValid, _, _ in
+            if isValid {
+                self.introductoryPromo = IntroductoryPromotion(code: IAPConstants.introCode, days: 180)
+                NotificationCenter.postOnMainThread(notification: ServerNotifications.iapPromoUpdated)
+            }
+        })
     }
     
     func getProductWithIdentifier(identifier: String) -> SKProduct! {
@@ -34,7 +45,7 @@ class IapHelper: NSObject, SKProductsRequestDelegate {
         }
         return nil
     }
-
+    
     func isEligibleForTrial() {}
 
     func getFreeTrialDays(_ identifier: Constants.IapProducts) -> Int? {
@@ -102,8 +113,6 @@ class IapHelper: NSObject, SKProductsRequestDelegate {
     
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         if response.products.count > 0 {
-            NSLog("👋 iapProductsUpdated")
-
             productsArray = response.products
             NotificationCenter.postOnMainThread(notification: ServerNotifications.iapProductsUpdated)
         }
@@ -189,4 +198,13 @@ extension IapHelper: SKPaymentTransactionObserver {
             NotificationCenter.postOnMainThread(notification: ServerNotifications.iapPurchaseCompleted)
         }
     }
+
+    enum IAPConstants {
+        static let introCode = "connected"
+    }
+}
+
+struct IntroductoryPromotion {
+    let code: String
+    let days: Int
 }

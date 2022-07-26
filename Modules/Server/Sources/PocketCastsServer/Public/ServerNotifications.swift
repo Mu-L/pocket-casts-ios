@@ -21,6 +21,8 @@ public enum ServerNotifications {
     public static let iapPurchaseFailed = NSNotification.Name(rawValue: "SJIapPurchaseFailed")
     public static let iapPurchaseCancelled = NSNotification.Name(rawValue: "SJIapPurchaseCancelled")
     public static let subscriptionStatusChanged = NSNotification.Name(rawValue: "SJSubscriptionStatusChanged")
+
+    public static let iapPromoUpdated = NSNotification.Name(rawValue: "iapPromoUpdated")
     
     // User Episode
     public static let userEpisodeUploadProgress = NSNotification.Name(rawValue: "SJUserEpisodeUploadProgress")

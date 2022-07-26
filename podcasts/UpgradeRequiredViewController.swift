@@ -107,13 +107,18 @@ class UpgradeRequiredViewController: PCViewController {
 
             let presentingController = self.upgradeRootViewController
 
-            if SyncManager.isUserLoggedIn() {
-                let newSubscription = NewSubscription(isNewAccount: false, iap_identifier: "")
-                presentingController?.present(SJUIUtils.popupNavController(for: TermsViewController(newSubscription: newSubscription), navStyle: .primaryUi01), animated: true)
+            guard let offer = IapHelper.shared.introductoryPromo else {
+                if SyncManager.isUserLoggedIn() {
+                    let newSubscription = NewSubscription(isNewAccount: false, iap_identifier: "")
+                    presentingController?.present(SJUIUtils.popupNavController(for: TermsViewController(newSubscription: newSubscription), navStyle: .primaryUi01), animated: true)
+                }
+                else {
+                    presentingController?.present(SJUIUtils.popupNavController(for: ProfileIntroViewController()), animated: true)
+                }
+                return
             }
-            else {
-                presentingController?.present(SJUIUtils.popupNavController(for: ProfileIntroViewController()), animated: true)
-            }
+
+            NavigationManager.sharedManager.navigateTo(NavigationManager.showPromotionPageKey, data: [NavigationManager.promotionInfoKey: offer.code as Any])
         })
     }
     
@@ -129,9 +134,21 @@ class UpgradeRequiredViewController: PCViewController {
 }
 
 private extension UpgradeRequiredViewController {
+    func checkIntroPromoCode() {
+        guard let offer = IapHelper.shared.introductoryPromo else {
+            noPaymentLabel.isHidden = true
+            return
+        }
+
+        infoLabel.text = "Try Pocket Casts Plus free for \(offer.days) days"
+        noPaymentLabel.text = "No Payment Required"
+        upgradeButton.setTitle("Start Free Trial", for: .normal)
+        noPaymentLabel.isHidden = false
+    }
+
     func updateInfoLabel() {
         guard let trial = IapHelper.shared.getFreeTrialDays(.yearly) else {
-            noPaymentLabel.isHidden = true
+            checkIntroPromoCode()
             return
         }
 

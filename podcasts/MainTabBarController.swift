@@ -40,6 +40,17 @@ class MainTabBarController: UITabBarController, NavigationProtocol {
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(unhideNavBar), name: Constants.Notifications.unhideNavBarRequested, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(iapProductsUpdated), name: ServerNotifications.iapProductsUpdated, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(iapPromoUpdated), name: ServerNotifications.iapPromoUpdated, object: nil)
+    }
+
+    @objc private func iapPromoUpdated() {
+        guard IapHelper.shared.introductoryPromo != nil else {
+            NSLog("👋 Not Eligible")
+            return
+        }
+
+        NavigationManager.sharedManager.showUpsellView(from: self, source: .unknown)
     }
 
     @objc private func iapProductsUpdated() {
