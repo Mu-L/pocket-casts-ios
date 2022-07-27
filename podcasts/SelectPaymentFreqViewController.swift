@@ -193,11 +193,20 @@ class SelectPaymentFreqViewController: UIViewController {
     private func configureYearlyTrialLabel() {
         guard let days = IapHelper.shared.getFreeTrialDays(.yearly) else {
             yearlyTrialLabel.isHidden = true
-            yearlyTopConstraint.constant = 0
+//            yearlyTopConstraint.constant = 0
             return
         }
 
-        yearlyTrialLabel.text = "\(days) Day Free Trial"
+        let yearlyPrice = IapHelper.shared.getPriceForIdentifier(identifier: Constants.IapProducts.yearly.rawValue)
+        let frequency = IapHelper.shared.getPaymentFrequencyForIdentifier(identifier: Constants.IapProducts.yearly.rawValue)
+
+//        yearlyTopConstraint.constant = 0
+
+//        yearlyPriceConstraint.constant = -5
+
+        yearlyPriceLabel.text = "\(days) Days Free"
+        yearlyTrialLabel.text = "then \(yearlyPrice)/\(frequency)"
+//        discountLabel.isHidden = true
     }
     
     @IBAction func yearlyTapped(_ sender: Any) {
