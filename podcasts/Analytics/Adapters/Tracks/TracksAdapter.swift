@@ -17,7 +17,7 @@ class TracksAdapter: AnalyticsAdapter {
         static let prefix = "pcios"
         static let userKey = "pc:user_id"
         static let anonymousUUIDKey = "TracksAnonymousUUID"
-        static let uuidInactivityTimeout: TimeInterval = 30.minutes
+        static let uuidInactivityTimeout: TimeInterval = 2.seconds
     }
 
     /// Returns a UUID id to use if the user is in a logged out state
@@ -28,6 +28,7 @@ class TracksAdapter: AnalyticsAdapter {
         // Generate a new UUID if there isn't currently one
         guard let uuid = userDefaults.string(forKey: key) else {
             let uuid = UUID().uuidString
+            print("🔵 UUID is now: \(uuid)")
             userDefaults.set(uuid, forKey: key)
             return uuid
         }
@@ -121,6 +122,7 @@ private extension TracksAdapter {
     }
 
     func resetAnonymousUUID() {
+        print("🔵 Resetting UUID")
         userDefaults.set(nil, forKey: TracksConfig.anonymousUUIDKey)
     }
 
@@ -133,6 +135,8 @@ private extension TracksAdapter {
         }
 
         let secondsSince = Date().timeIntervalSince(lastEventDate)
+
+        print("🔵 Seconds Since: \(secondsSince)")
 
         // The timeout limit hasn't been hit yet
         guard secondsSince >= TracksConfig.uuidInactivityTimeout else {
