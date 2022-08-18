@@ -323,6 +323,7 @@ public class ServerSettings {
 // MARK: - User ID Support
 
 public extension ServerSettings {
+    /// Warning: This is currently only used locally.
     class var userId: String? {
         get {
             UserDefaults.standard.string(forKey: ServerConstants.UserDefaults.userId)
