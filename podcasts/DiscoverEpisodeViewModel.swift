@@ -97,8 +97,12 @@ class DiscoverEpisodeViewModel: ObservableObject {
         let listId = discoverItem?.uuid ?? listId
 
         DiscoverEpisodeViewModel.loadPodcast(podcastUuid, episodeUuid: episodeUuid)
-            .sink { [unowned self] _ in
+            .sink { [weak self] podcast in
                 // We don't need the fetched podcast but we want to make sure the episode is available.
+                guard podcast != nil, let self else {
+                    self?.delegate?.failedToPlayEpisode(episodeUuid)
+                    return
+                }
 
                 if self.playbackManager.isActivelyPlaying(episodeUuid: episodeUuid) {
                     PlaybackActionHelper.pause()
@@ -125,9 +129,7 @@ class DiscoverEpisodeViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .sink { [weak self] podcast in
                 guard let podcast = podcast else {
-                    DispatchQueue.main.async {
-                        SJUIUtils.showAlert(title: L10n.error, message: L10n.discoverFeaturedEpisodeErrorNotFound, from: self?.delegate)
-                    }
+                    self?.delegate?.failedToLoadEpisode(episodeUuid)
                     return
                 }
                 self?.delegate?.show(discoverEpisode: episode, podcast: podcast)
