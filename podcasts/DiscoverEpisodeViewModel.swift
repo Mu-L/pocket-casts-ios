@@ -138,29 +138,16 @@ class DiscoverEpisodeViewModel: ObservableObject {
     }
 
     // MARK: Static helpers
-
     static func loadPodcast(_ podcastUUID: String, episodeUuid: String) -> AnyPublisher<Podcast?, Never> {
         Future<Podcast?, ClientError> { promise in
-
-            func ensureEpisode(_ episodeUuid: String, podcast: Podcast) {
-                DiscoverEpisodeViewModel.ensureEpisodeExists(podcast: podcast, episodeUuid: episodeUuid) { exists in
-                    guard exists else {
-                        promise(.failure(.episodeNotFound))
-                        return
-                    }
-
-                    promise(.success(podcast))
-                }
-            }
-
             if let existingPodcast = DataManager.sharedManager.findPodcast(uuid: podcastUUID, includeUnsubscribed: true) {
-                ensureEpisode(episodeUuid, podcast: existingPodcast)
+                Self.ensureEpisodeExists(podcast: existingPodcast, episodeUuid: episodeUuid, promise: promise)
                 return
             }
 
             ServerPodcastManager.shared.addFromUuid(podcastUuid: podcastUUID, subscribe: false) { added in
                 if added, let existingPodcast = DataManager.sharedManager.findPodcast(uuid: podcastUUID, includeUnsubscribed: true) {
-                    ensureEpisode(episodeUuid, podcast: existingPodcast)
+                    Self.ensureEpisodeExists(podcast: existingPodcast, episodeUuid: episodeUuid, promise: promise)
                     return
                 } else {
                     promise(.failure(.podcastNotFound))
