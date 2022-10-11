@@ -172,22 +172,24 @@ class DiscoverEpisodeViewModel: ObservableObject {
     }
 
     /**
-        Checks if a specific episode of a podcast exists, if not refreshes the episode list and notifies if the episode was successfully found or not.
+     Checks if a specific episode of a podcast exists, if not refreshes the episode list and notifies if the episode was successfully found or not.
      */
-    static func ensureEpisodeExists(podcast: Podcast, episodeUuid: String, completion: ((Bool) -> Void)?) {
-        let episode = DataManager.sharedManager.findEpisode(uuid: episodeUuid)
-
-        if episode == nil {
-            ServerPodcastManager.shared.updatePodcastIfRequired(podcast: podcast) { _ in
-                guard DataManager.sharedManager.findEpisode(uuid: episodeUuid) != nil else {
-                    completion?(false)
-                    return
-                }
-
-                completion?(true)
-            }
+    static private func ensureEpisodeExists(podcast: Podcast, episodeUuid: String, promise: @escaping (Result<Podcast?, ClientError>) -> Void) {
+        // If the episode already exists, then move on
+        guard DataManager.sharedManager.findEpisode(uuid: episodeUuid) == nil else {
+            promise(.success(podcast))
             return
         }
-        completion?(true)
+
+        // Try and retrieve the podcast from the server
+        ServerPodcastManager.shared.updatePodcastIfRequired(podcast: podcast) { _ in
+            // Check to make sure the episode exists again, error out if it doesn't
+            guard DataManager.sharedManager.findEpisode(uuid: episodeUuid) != nil else {
+                promise(.failure(.episodeNotFound))
+                return
+            }
+
+            promise(.success(podcast))
+        }
     }
 }
