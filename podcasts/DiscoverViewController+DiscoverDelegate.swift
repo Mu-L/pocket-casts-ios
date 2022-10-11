@@ -110,4 +110,16 @@ extension DiscoverViewController: DiscoverDelegate {
         episodeController.modalPresentationStyle = .formSheet
         present(episodeController, animated: true)
     }
+
+    func failedToLoadEpisode(_ episodeUuid: String) {
+        SJUIUtils.showAlert(title: L10n.error,
+                            message: L10n.discoverFeaturedEpisodeErrorNotFound,
+                            from: self)
+    }
+
+    func failedToPlayEpisode(_ episodeUuid: String) {
+        SJUIUtils.showAlert(title: L10n.error,
+                                    message: "TODO: Couldn't play",
+                                    from: self)
+    }
 }
