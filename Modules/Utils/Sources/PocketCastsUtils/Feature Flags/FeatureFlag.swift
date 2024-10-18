@@ -79,9 +79,6 @@ public enum FeatureFlag: String, CaseIterable {
     /// Enable the transcripts feature on podcasts episodes
     case transcripts
 
-    /// Makes the "Change Avatar" button visible in the Account Settings.
-    case gravatarChangeAvatar
-
     /// Enables the Kids banner
     case kidsProfile
 
@@ -121,6 +118,12 @@ public enum FeatureFlag: String, CaseIterable {
     /// Enable the Segmented Control into the Effects Player panel
     /// to apply the Global or local settings
     case customPlaybackSettings
+
+    /// Run a vacuum process on the database in order to optimize data fetch
+    case runVacuumOnVersionUpdate
+
+    /// Enable the End of Year 2024 recap
+    case endOfYear2024
 
     public var enabled: Bool {
         if let overriddenValue = FeatureFlagOverrideStore().overriddenValue(for: self) {
@@ -182,8 +185,6 @@ public enum FeatureFlag: String, CaseIterable {
             true
         case .transcripts:
             true
-        case .gravatarChangeAvatar:
-            true
         case .kidsProfile:
             false
         case .upgradeExperiment:
@@ -191,7 +192,7 @@ public enum FeatureFlag: String, CaseIterable {
         case .ignoreRouteDisconnectedInterruption:
             true
         case .referrals:
-            false
+            true
         case .syncStats:
             true
         case .discoverCollectionView:
@@ -203,6 +204,10 @@ public enum FeatureFlag: String, CaseIterable {
         case .useMimetypePackage:
             true
         case .customPlaybackSettings:
+            true
+        case .runVacuumOnVersionUpdate:
+            true
+        case .endOfYear2024:
             false
         }
     }
